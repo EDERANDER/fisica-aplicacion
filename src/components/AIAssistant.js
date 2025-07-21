@@ -84,6 +84,7 @@ const AIAssistant = () => {
         } else {
           await new Promise(res => setTimeout(res, 1000));
         }
+        
       }
 
       const messagesRes = await fetch(`https://api.openai.com/v1/threads/${thread.id}/messages`, {
