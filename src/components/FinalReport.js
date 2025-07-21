@@ -9,7 +9,7 @@ const FinalReport = () => {
       </div>
       <div className="report-viewer-container">
         <iframe 
-          src={process.env.PUBLIC_URL + "/doc.pdf"} 
+          src={process.env.PUBLIC_URL + "/INFORME FINAL BORRADOR.pdf"} 
           title="Informe Final"
           width="100%"
           height="100%"
