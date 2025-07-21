@@ -36,3 +36,66 @@
     transform: rotate(360deg);
   }
 }
+
+/* FinalReport.js styles */
+.final-report-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f0f2f5; /* Light background for the page */
+  min-height: calc(100vh - 56px); /* Adjust for navbar height */
+}
+
+.report-description {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  max-width: 900px;
+  width: 100%;
+  text-align: left;
+  color: #333;
+}
+
+.report-description h2 {
+  color: #0056b3;
+  margin-bottom: 15px;
+  font-size: 2em;
+}
+
+.report-description p {
+  font-size: 1.1em;
+  line-height: 1.6;
+}
+
+.report-viewer-container {
+  width: 100%;
+  max-width: 900px;
+  height: 90vh; /* Adjust height as needed */
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow-y: auto; /* Allow vertical scrolling */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .report-description {
+    padding: 20px;
+  }
+
+  .report-description h2 {
+    font-size: 1.8em;
+  }
+
+  .report-description p {
+    font-size: 1em;
+  }
+
+  .report-viewer-container {
+    height: 60vh; /* Smaller height on smaller screens */
+  }
+}

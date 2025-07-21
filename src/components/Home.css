@@ -1,0 +1,86 @@
+.hero-section {
+  position: relative;
+  height: 100vh;
+  background-image: url('riego.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  overflow: hidden; /* Para asegurar que el texto en movimiento no se desborde */
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Oscurecer un poco más el overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column; /* Para apilar título y subtítulo */
+}
+
+.hero-content {
+  max-width: 900px; /* Aumentar el ancho máximo para el contenido */
+  padding: 20px;
+}
+
+.hero-title {
+  font-size: 4.5em; /* Tamaño de fuente más grande */
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-shadow: 0 0 15px rgba(0, 198, 255, 0.8); /* Sombra brillante */
+  background: linear-gradient(45deg, #007bff, #00c6ff); /* Degradado de color */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-glow 2s ease-in-out infinite alternate, slide-in 1.5s ease-out;
+  /* white-space: nowrap; */ /* Evitar que el texto se rompa en varias líneas */
+  /* overflow: hidden; */ /* Ocultar el desbordamiento durante la animación */
+}
+
+.hero-subtitle {
+  font-size: 2.0em; /* Tamaño de fuente para el subtítulo */
+  margin-top: 0;
+  color: #e0e0e0; /* Color de texto más claro */
+  animation: fade-in 2s ease-out 1s forwards; /* Retrasar la aparición del subtítulo */
+  opacity: 0; /* Iniciar invisible */
+}
+
+/* Animaciones */
+@keyframes text-glow {
+  from { text-shadow: 0 0 10px #00c6ff, 0 0 20px #00c6ff, 0 0 30px #007bff; }
+  to { text-shadow: 0 0 20px #00c6ff, 0 0 30px #00c6ff, 0 0 40px #007bff; }
+}
+
+@keyframes slide-in {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 3em;
+  }
+
+  .hero-subtitle {
+    font-size: 1.5em;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2em;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2em;
+  }
+}
