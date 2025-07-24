@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Form, InputGroup, Button } from 'react-bootstrap';
+import { FaPaperPlane, FaMicrophone } from 'react-icons/fa'; // Import FaMicrophone
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import './AIAssistant.css';
 
 const AIAssistant = () => {
   const [mensajes, setMensajes] = useState([]);
   const [mensaje, setMensaje] = useState("");
   const [cargandoRespuesta, setCargandoRespuesta] = useState(false);
+  const [apiKey, setApiKey] = useState(null); // State to store API key
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -14,6 +19,58 @@ const AIAssistant = () => {
   useEffect(() => {
     scrollToBottom();
   }, [mensajes, cargandoRespuesta]);
+
+  // Fetch API key on component mount
+  useEffect(() => {
+    const fetchApiKey = async () => {
+      try {
+        const apiKeyRes = await fetch("https://backend-facturador.rj.r.appspot.com/facturador/apikey");
+        const apiKeyData = await apiKeyRes.json();
+        setApiKey(apiKeyData.apikey);
+      } catch (error) {
+        console.error("Error fetching API key:", error);
+      }
+    };
+    fetchApiKey();
+  }, []);
+
+  const handleSpeak = async (textToSpeak) => {
+    if (!apiKey) {
+      console.error("API Key not available for TTS.");
+      return;
+    }
+
+    try {
+      const ttsResponse = await fetch("https://api.openai.com/v1/audio/speech", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "tts-1", // Or tts-1-hd for higher quality
+          voice: "alloy", // Choose a voice (alloy, echo, fable, onyx, nova, shimmer)
+          input: textToSpeak,
+        }),
+      });
+
+      if (!ttsResponse.ok) {
+        throw new Error(`TTS API error: ${ttsResponse.statusText}`);
+      }
+
+      const audioBlob = await ttsResponse.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      audio.play();
+
+      audio.onended = () => {
+        URL.revokeObjectURL(audioUrl); // Clean up the object URL after playback
+      };
+
+    } catch (ttsError) {
+      console.error("Error generating or playing speech:", ttsError);
+    }
+  };
 
   const enviarMensaje = async (e) => {
     e.preventDefault();
@@ -25,15 +82,16 @@ const AIAssistant = () => {
       usuario: true
     };
 
-    setMensajes([...mensajes, nuevoMensaje]);
+    setMensajes(prev => [...prev, nuevoMensaje]);
     const currentMessage = mensaje;
     setMensaje("");
     setCargandoRespuesta(true);
 
     try {
-      const apiKeyRes = await fetch("https://backend-facturador.rj.r.appspot.com/facturador/apikey");
-      const apiKeyData = await apiKeyRes.json();
-      const apiKey = apiKeyData.apikey;
+      // Use the fetched API key
+      if (!apiKey) {
+        throw new Error("API Key not available. Please refresh the page.");
+      }
 
       const assistantId = "asst_lJIL9qCSsoZVXnFViAHX4Hzn";
 
@@ -96,6 +154,8 @@ const AIAssistant = () => {
       const respuestaIA = messagesData.data.find(msg => msg.role === "assistant");
 
       const assistantMessageId = Date.now() + 1;
+      const fullText = respuestaIA?.content?.[0]?.text?.value || "⚠️ No se recibió respuesta del assistant.";
+
       setMensajes(prev => [
         ...prev,
         {
@@ -105,7 +165,6 @@ const AIAssistant = () => {
         }
       ]);
 
-      const fullText = respuestaIA?.content?.[0]?.text?.value || "⚠️ No se recibió respuesta del assistant.";
       let i = 0;
       const typingInterval = setInterval(() => {
         setMensajes(prev => prev.map(msg =>
@@ -117,7 +176,7 @@ const AIAssistant = () => {
         if (i > fullText.length) {
           clearInterval(typingInterval);
         }
-      }, 20); // Adjust typing speed here (milliseconds per character)
+      }, 5); // Adjusted typing speed here (milliseconds per character)
 
     } catch (error) {
       console.error("Error al conectar con el assistant de OpenAI:", error);
@@ -143,7 +202,23 @@ const AIAssistant = () => {
         <div className="chat-messages">
           {mensajes.map(msg => (
             <div key={msg.id} className={`message ${msg.usuario ? 'usuario' : 'assistant'}`}>
-              {msg.texto}
+              {msg.usuario ? (
+                msg.texto
+              ) : (
+                <>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.texto}</ReactMarkdown>
+                  {msg.texto && (
+                    <Button
+                      variant="link"
+                      className="p-0 ms-2 text-muted"
+                      onClick={() => handleSpeak(msg.texto)}
+                      disabled={!apiKey}
+                    >
+                      <FaMicrophone size={18} />
+                    </Button>
+                  )}
+                </>
+              )}
             </div>
           ))}
           {cargandoRespuesta && (
@@ -153,18 +228,20 @@ const AIAssistant = () => {
           )}
           <div ref={messagesEndRef} />
         </div>
-        <form className="chat-form" onSubmit={enviarMensaje}>
-          <input
-            type="text"
-            value={mensaje}
-            onChange={(e) => setMensaje(e.target.value)}
-            placeholder="Escribe tu mensaje..."
-            disabled={cargandoRespuesta}
-          />
-          <button type="submit" disabled={cargandoRespuesta || !mensaje.trim()}>
-            Enviar
-          </button>
-        </form>
+        <Form className="chat-form" onSubmit={enviarMensaje}>
+          <InputGroup>
+            <Form.Control
+              type="text"
+              value={mensaje}
+              onChange={(e) => setMensaje(e.target.value)}
+              placeholder="Escribe tu mensaje..."
+              disabled={cargandoRespuesta}
+            />
+            <Button variant="primary" type="submit" disabled={cargandoRespuesta || !mensaje.trim()}>
+              <FaPaperPlane />
+            </Button>
+          </InputGroup>
+        </Form>
       </div>
     </div>
   );

@@ -1,0 +1,60 @@
+/* AutomatedIrrigation.css */
+
+.automated-irrigation-page {
+  background-color: #f8f9fa;
+  min-height: calc(100vh - 56px);
+  padding-top: 60px; /* Adjust for fixed navbar */
+  padding-bottom: 60px;
+}
+
+.automated-irrigation-page h1 {
+  color: #007bff;
+}
+
+.automated-irrigation-page .lead {
+  max-width: 800px;
+  margin: 0 auto 40px auto;
+}
+
+.feature-card, .component-card, .type-card {
+  border: none;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+}
+
+.feature-card:hover, .component-card:hover, .type-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+}
+
+.feature-card .card-body, .component-card .card-body, .type-card .card-body {
+  padding: 2.5rem;
+}
+
+.feature-card .text-success {
+  color: #28a745 !important; /* Green for feature icons */
+}
+
+.component-card .text-info {
+  color: #17a2b8 !important; /* Info blue for component icons */
+}
+
+.type-card .card-title {
+  color: #007bff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .automated-irrigation-page h1 {
+    font-size: 2.5rem;
+  }
+
+  .automated-irrigation-page .lead {
+    font-size: 1rem;
+  }
+
+  .feature-card .card-body, .component-card .card-body, .type-card .card-body {
+    padding: 1.5rem;
+  }
+}

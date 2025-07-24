@@ -1,100 +1,230 @@
+/* General styles for the application */
+body {
+  font-family: 'Open Sans', sans-serif; /* Modern and clean font */
+  background-color: #f8f9fa; /* Light background for the entire page */
+  color: #343a40; /* Darker text for better readability */
+}
+
+/* Adjustments for fixed navbar */
 .App {
-  text-align: center;
+  padding-top: 56px; /* Adjust based on navbar height */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Typography improvements */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif; /* A more prominent font for headings */
+  color: #212529; /* Darker headings */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Link styles */
+a {
+  color: #007bff; /* Bootstrap primary blue for links */
+  text-decoration: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* Custom Navbar Styles */
+.custom-navbar {
+  background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: background-color 0.3s ease-in-out;
+}
+
+.custom-navbar .navbar-brand-custom {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #007bff !important; /* Primary blue for brand */
+  transition: transform 0.2s ease-in-out;
+}
+
+.custom-navbar .navbar-brand-custom:hover {
+  transform: scale(1.05); /* Slight scale on hover */
+}
+
+.custom-navbar .nav-link-custom {
+  color: #343a40 !important; /* Dark text for links */
+  font-weight: 600;
+  margin: 0 10px;
+  position: relative;
+  transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.custom-navbar .nav-link-custom::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 3px;
+  bottom: -5px;
+  left: 0;
+  background-color: #007bff; /* Underline effect */
+  transition: width 0.3s ease-in-out;
+}
+
+.custom-navbar .nav-link-custom:hover::after {
+  width: 100%;
+}
+
+.custom-navbar .nav-link-custom:hover {
+  color: #0056b3 !important; /* Darker blue on hover */
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+/* Home Page Specific Styles */
+.home-page {
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+.hero-section {
+  background: linear-gradient(135deg, #007bff, #00c6ff); /* Modern gradient background */
+  min-height: calc(100vh - 56px); /* Full height minus navbar */
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  position: relative;
+  overflow: hidden;
 }
 
-.App-link {
-  color: #61dafb;
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('./logo.svg') no-repeat center center;
+  background-size: cover; /* Adjust as needed */
+  opacity: 0.1; /* Subtle background image */
+  z-index: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.hero-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-section h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.hero-section p.lead {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: #e9ecef;
+}
+
+.hero-section .btn {
+  border-radius: 50px; /* Pill-shaped buttons */
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.hero-section .btn-primary {
+  background-color: #28a745; /* Green primary button */
+  border-color: #28a745;
+}
+
+.hero-section .btn-primary:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+  transform: translateY(-2px);
+}
+
+.hero-section .btn-outline-light {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.hero-section .btn-outline-light:hover {
+  background-color: #ffffff;
+  color: #007bff;
+  transform: translateY(-2px);
+}
+
+.features-section {
+  background-color: #ffffff;
+  padding: 80px 0;
+}
+
+.features-section h2 {
+  color: #007bff;
+  margin-bottom: 3rem;
+}
+
+.features-section .card {
+  border: none;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+}
+
+.features-section .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+}
+
+.features-section .card-body {
+  padding: 2.5rem;
+}
+
+.features-section .card-title {
+  color: #007bff;
+  font-weight: 600;
+}
+
+.features-section .text-primary {
+  color: #007bff !important; /* Ensure primary color for icons */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 2.5rem;
   }
-  to {
-    transform: rotate(360deg);
+
+  .hero-section p.lead {
+    font-size: 1.2rem;
+  }
+
+  .hero-section .btn {
+    font-size: 1rem;
+    padding: 0.6rem 1.5rem;
+  }
+
+  .features-section .card-body {
+    padding: 1.5rem;
   }
 }
 
 /* FinalReport.js styles */
 .final-report-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  background-color: #f0f2f5; /* Light background for the page */
+  background-color: #f8f9fa; /* Light background for the page */
   min-height: calc(100vh - 56px); /* Adjust for navbar height */
-}
-
-.report-description {
-  background-color: #ffffff;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  margin-bottom: 30px;
-  max-width: 900px;
-  width: 100%;
-  text-align: left;
-  color: #333;
-}
-
-.report-description h2 {
-  color: #0056b3;
-  margin-bottom: 15px;
-  font-size: 2em;
-}
-
-.report-description p {
-  font-size: 1.1em;
-  line-height: 1.6;
 }
 
 .report-viewer-container {
   width: 100%;
-  max-width: 900px;
-  height: 90vh; /* Adjust height as needed */
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  overflow-y: auto; /* Allow vertical scrolling */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 900px; /* Max width for larger screens */
+  height: 80vh; /* Adjust height as needed */
+  border: 1px solid #c0c0c0; /* Slightly darker border for depth */
+  border-radius: 12px; /* More rounded corners */
+  overflow: hidden; /* Hide scrollbar if not needed, or use auto */
   background-color: #fff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* Stronger shadow for "book" effect */
+  margin: 0 auto; /* Center the container within its parent */
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .report-description {
-    padding: 20px;
-  }
-
-  .report-description h2 {
-    font-size: 1.8em;
-  }
-
-  .report-description p {
-    font-size: 1em;
-  }
-
   .report-viewer-container {
     height: 60vh; /* Smaller height on smaller screens */
   }
