@@ -1,4 +1,5 @@
 import React from 'react';
+import './Home.css';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom'; // Import Link
 import { FaChartLine, FaRobot, FaFileAlt } from 'react-icons/fa'; // Import icons
@@ -38,6 +39,7 @@ const Home = () => {
                 </Card.Body>
               </Card>
             </Col>
+
             <Col md={4}>
               <Card className="h-100 shadow-sm border-0 text-center">
                 <Card.Body className="p-4">
@@ -49,6 +51,7 @@ const Home = () => {
                 </Card.Body>
               </Card>
             </Col>
+
             <Col md={4}>
               <Card className="h-100 shadow-sm border-0 text-center">
                 <Card.Body className="p-4">
@@ -60,6 +63,7 @@ const Home = () => {
                 </Card.Body>
               </Card>
             </Col>
+            
           </Row>
         </Container>
       </section>
