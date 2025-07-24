@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/fisica-aplicacion/static/css/main.d32ef154.css",
+    "main.css": "/fisica-aplicacion/static/css/main.8d2c07b9.css",
     "main.js": "/fisica-aplicacion/static/js/main.838fc957.js",
     "static/js/453.39e622b0.chunk.js": "/fisica-aplicacion/static/js/453.39e622b0.chunk.js",
-    "static/media/logo.svg": "/fisica-aplicacion/static/media/logo.6ce24c58023cc2f8fd88.svg",
+    "static/media/riego.jpg": "/fisica-aplicacion/static/media/riego.95fdb77e8fd4645011a3.jpg",
     "index.html": "/fisica-aplicacion/index.html",
-    "main.d32ef154.css.map": "/fisica-aplicacion/static/css/main.d32ef154.css.map",
+    "main.8d2c07b9.css.map": "/fisica-aplicacion/static/css/main.8d2c07b9.css.map",
     "main.838fc957.js.map": "/fisica-aplicacion/static/js/main.838fc957.js.map",
     "453.39e622b0.chunk.js.map": "/fisica-aplicacion/static/js/453.39e622b0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d32ef154.css",
+    "static/css/main.8d2c07b9.css",
     "static/js/main.838fc957.js"
   ]
 }
